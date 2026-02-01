@@ -1,0 +1,5 @@
+pyrogram
+tgcrypto
+aiohttp
+jinja2
+python-dotenv
