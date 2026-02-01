@@ -1,7 +1,7 @@
 import asyncio
 from pyrogram import Client, idle
 from config import API_ID, API_HASH, BOT_TOKEN
-from web.server import start_web_server # Import your new server
+from web.server import start_web_server  # Import the server
 
 class SorterBot(Client):
     def __init__(self):
@@ -15,25 +15,23 @@ class SorterBot(Client):
 
     async def start(self):
         await super().start()
-        print("✅ Bot is Online!")
+        print("✅ Bot Started on Telegram!")
 
     async def stop(self, *args):
         await super().stop()
         print("❌ Bot Stopped.")
 
 async def main():
-    # 1. Start the Bot
+    # 1. Start Bot
     bot = SorterBot()
     await bot.start()
 
-    # 2. Start the Web Server (Render needs this)
+    # 2. Start Web Server
     await start_web_server()
 
-    # 3. Keep running until stopped
+    # 3. Keep running
     await idle()
     await bot.stop()
 
 if __name__ == "__main__":
-    # Run the main async loop
     asyncio.run(main())
-
