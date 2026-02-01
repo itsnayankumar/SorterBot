@@ -4,11 +4,10 @@ from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton
 from pyrogram.errors import FloodWait
 
 from utils.db import db
-from utils.session import user_sessions  # <--- UPDATED IMPORT
+from config import user_sessions  # <--- Import from config
 from utils.parser import get_season_episode
 
-# ... (The rest of the code remains exactly the same) ...
-
+# ... (Rest of the file stays exactly the same) ...
 # --- HELPER: Safe Sticker Sender ---
 async def safe_send(client, chat_id, key):
     """
