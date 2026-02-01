@@ -1,9 +1,7 @@
 from pyrogram import Client, filters
-from config import OWNER_ID  # <--- Changed from ADMINS to OWNER_ID
+from config import OWNER_ID
 from utils.db import db
-
-# Global session storage
-user_sessions = {}
+from utils.session import user_sessions  # <--- NEW IMPORT
 
 @Client.on_message(filters.command("start") & filters.private)
 async def start_handler(client, message):
@@ -13,12 +11,12 @@ async def start_handler(client, message):
 async def batch_handler(client, message):
     user_id = message.from_user.id
     
-    # Logic: Allow if user is the Owner OR is in the Authorized Users list in Database
+    # Check Database for Authorization
     auth_list = db.get("auth_users") or []
     
     if user_id != OWNER_ID and user_id not in auth_list:
         return await message.reply("🔒 **Access Denied.** You are not authorized to use this bot.")
     
-    # Initialize session
+    # Start the session
     user_sessions[user_id] = {"files": [], "map": {}}
     await message.reply_text("📥 **Batch Active!** Forward your files now.")
